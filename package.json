@@ -5,13 +5,9 @@
   "repository": {
     "url": "nrw/seq-example"
   },
-  "main": "server.js",
+  "main": "drop.js",
   "scripts": {
-    "start": "npm run build; node server.js",
-    "test": "tap test/*.coffee",
-    "watch": "supervisor -w . -x tap -e 'coffee|js' -n exit -q -- --tap test/*.coffee | faucet",
-    "dev": "supervisor -e 'coffee|html' -q -n exit -x browserify -- client.coffee -t coffeeify -o bundle.js",
-    "build": "browserify client.js -o bundle.js"
+    "start": "node drop.js"
   },
   "dependencies": {
     "coffee-script": "1.x.x",
