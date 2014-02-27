@@ -1,6 +1,6 @@
 Items that are moved in a CRDT sequence are (instead) *removed* from the sequence.
 
-1. npm run build
+1. npm install; npm run build
 2. npm start
 3. load `http://localhost:8080`
 4. Wait 5 seconds. see a 3 item sequence as json
