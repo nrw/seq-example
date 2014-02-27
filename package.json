@@ -7,7 +7,7 @@
   },
   "main": "server.js",
   "scripts": {
-    "start": "npm build; node server.js",
+    "start": "npm run build; node server.js",
     "test": "tap test/*.coffee",
     "watch": "supervisor -w . -x tap -e 'coffee|js' -n exit -q -- --tap test/*.coffee | faucet",
     "dev": "supervisor -e 'coffee|html' -q -n exit -x browserify -- client.coffee -t coffeeify -o bundle.js",
