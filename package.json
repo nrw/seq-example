@@ -11,24 +11,11 @@
   },
   "dependencies": {
     "coffee-script": "1.x.x",
-    "tape": "2.x.x",
     "crdt": "^3.6.0",
     "level-scuttlebutt": "^5.0.6",
     "level": "^0.18.0",
-    "ecstatic": "^0.4.13",
-    "shoe": "0.0.15",
-    "through": "^2.3.4",
-    "level-sublevel": "^5.2.0",
-    "udid": "^0.1.4",
-    "coffeeify": "^0.6.0",
-    "domready": "^1.0.4",
-    "reconnect-core": "0.0.1",
-    "reconnect-widget": "^1.0.1",
-    "level-js": "^1.1.2",
-    "levelup": "^0.18.2"
+    "level-sublevel": "^5.2.0"
   },
   "devDependencies": {
-    "tap": "0.x.x",
-    "faucet": "0.x.x"
   }
 }
