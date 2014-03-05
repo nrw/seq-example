@@ -19,9 +19,8 @@ test('setup', function(t){
   rimraf(__dirname + "/_db", function(){ t.end() })
 })
 
-
 test('modifying a sequence persists correctly', function(t) {
-
+  t.plan(1)
   var DB = newDB()
 
   DB.open('one-doc', function(err, doc1) {
@@ -46,15 +45,11 @@ test('modifying a sequence persists correctly', function(t) {
         anotherDB.open('one-doc', function(err, doc2) {
           var seq = doc2.createSeq('session', 'one');
 
-          setTimeout(function() {
-            var secondOutput = seq.asArray()
+          var secondOutput = seq.asArray()
 
-            // console.log(firstOutput)
-            // console.log(secondOutput)
-
-            t.same(firstOutput, secondOutput)
-            t.end()
-          }, 300)
+          // console.log(firstOutput)
+          // console.log(secondOutput)
+          t.same(firstOutput, secondOutput)
         })
       })
     })
