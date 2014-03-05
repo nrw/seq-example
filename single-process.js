@@ -1,12 +1,13 @@
-var assert = require('assert')
-// setup db
-newDB = function () {
-  var level = require('level')
+var level = require('level')
+    , assert = require('assert')
     , sublevel = require('level-sublevel')
     , scuttlebutt = require('level-scuttlebutt')
     , Doc = require('crdt').Doc
     , udid = require('udid')('example-app')
-    , db = sublevel(level("" + __dirname + "/_db"))
+
+// setup db
+newDB = function () {
+  var db = sublevel(level(__dirname + "/_db"))
 
   scuttlebutt(db, udid, function(name) {return new Doc;});
 
@@ -25,6 +26,8 @@ DB.open('one-doc', function(err, doc) {
 
   var firstOutput = JSON.stringify(seq.asArray())
   console.log(firstOutput)
+
+  doc.on('sync', function(){ console.log('sync') })
 
   DB.close(function(err){
     if (err) console.log('err', err);
