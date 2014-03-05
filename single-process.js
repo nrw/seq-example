@@ -1,11 +1,11 @@
 var level = require('level')
-    , assert = require('assert')
-    , sublevel = require('level-sublevel')
-    , scuttlebutt = require('level-scuttlebutt')
-    , Doc = require('crdt').Doc
-    , udid = require('udid')('example-app')
-    , test = require('tape')
-    , rimraf = require('rimraf')
+  , assert = require('assert')
+  , sublevel = require('level-sublevel')
+  , scuttlebutt = require('level-scuttlebutt')
+  , Doc = require('crdt').Doc
+  , udid = require('udid')('example-app')
+  , test = require('tape')
+  , rimraf = require('rimraf')
 
 // setup db
 newDB = function () {
