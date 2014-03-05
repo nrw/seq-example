@@ -1,3 +1,4 @@
+var assert = require('assert')
 // setup db
 newDB = function () {
   var level = require('level')
@@ -22,7 +23,8 @@ DB.open('one-doc', function(err, doc) {
   seq.push({id: 'c'});
   seq.after('a', 'b');
 
-  console.log(JSON.stringify(seq.asArray()))
+  var firstOutput = JSON.stringify(seq.asArray())
+  console.log(firstOutput)
 
   DB.close(function(err){
     if (err) console.log('err', err);
@@ -33,7 +35,9 @@ DB.open('one-doc', function(err, doc) {
       var seq = doc.createSeq('session', 'one');
 
       setTimeout(function() {
-        console.log(JSON.stringify(seq.asArray()))
+        var secondOutput = JSON.stringify(seq.asArray())
+        console.log(secondOutput)
+        assert.equal(firstOutput, secondOutput)
       }, 300);
     })
   })
