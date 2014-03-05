@@ -15,8 +15,8 @@
     "level-scuttlebutt": "^5.0.6",
     "level": "^0.18.0",
     "udid": "^0.1.4",
-    "level-sublevel": "^5.2.0"
+    "level-sublevel": "^5.2.0",
+    "rimraf": "^2.2.6"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

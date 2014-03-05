@@ -4,44 +4,59 @@ var level = require('level')
     , scuttlebutt = require('level-scuttlebutt')
     , Doc = require('crdt').Doc
     , udid = require('udid')('example-app')
+    , test = require('tape')
+    , rimraf = require('rimraf')
 
 // setup db
 newDB = function () {
   var db = sublevel(level(__dirname + "/_db"))
-
   scuttlebutt(db, udid, function(name) {return new Doc;});
-
   return db
 }
 
-var DB = newDB()
+// rm -rf database
+test('setup', function(t){
+  rimraf(__dirname + "/_db", function(){ t.end() })
+})
 
-DB.open('one-doc', function(err, doc) {
-  var seq = doc.createSeq('session', 'one');
 
-  seq.push({id: 'a'});
-  seq.push({id: 'b'});
-  seq.push({id: 'c'});
-  seq.after('a', 'b');
+test('modifying a sequence persists correctly', function(t) {
 
-  var firstOutput = JSON.stringify(seq.asArray())
-  console.log(firstOutput)
+  var DB = newDB()
 
-  doc.on('sync', function(){ console.log('sync') })
+  DB.open('one-doc', function(err, doc1) {
+    var seq = doc1.createSeq('session', 'one');
 
-  DB.close(function(err){
-    if (err) console.log('err', err);
+    seq.push({id: 'a'});
+    seq.push({id: 'b'});
+    seq.push({id: 'c'});
+    seq.after('a', 'b');
 
-    var anotherDB = newDB()
+    var firstOutput = seq.asArray()
 
-    anotherDB.open('one-doc', function(err, doc) {
-      var seq = doc.createSeq('session', 'one');
+    // is 'drain' the right event to listen for here?
+    DB.on('drain', function(){
 
-      setTimeout(function() {
-        var secondOutput = JSON.stringify(seq.asArray())
-        console.log(secondOutput)
-        assert.equal(firstOutput, secondOutput)
-      }, 300);
+      DB.close(function(err){
+        if (err) console.log('err', err);
+
+        // reopen DB
+        var anotherDB = newDB()
+
+        anotherDB.open('one-doc', function(err, doc2) {
+          var seq = doc2.createSeq('session', 'one');
+
+          setTimeout(function() {
+            var secondOutput = seq.asArray()
+
+            // console.log(firstOutput)
+            // console.log(secondOutput)
+
+            t.same(firstOutput, secondOutput)
+            t.end()
+          }, 300)
+        })
+      })
     })
   })
-});
+})
