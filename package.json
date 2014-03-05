@@ -7,7 +7,8 @@
   },
   "main": "drop.js",
   "scripts": {
-    "start": "node drop.js"
+    "start": "node single-process.js",
+    "test": "node single-process.js"
   },
   "dependencies": {
     "coffee-script": "1.x.x",
