@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "coffee-script": "1.x.x",
-    "crdt": "3.6.2",
+    "crdt": "3.6.3",
     "level-scuttlebutt": "5.0.8",
     "level": "~0.18.0",
     "udid": "~0.1.4",

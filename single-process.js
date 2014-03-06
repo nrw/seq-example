@@ -20,7 +20,7 @@ test('setup', function(t){
 })
 
 test('modifying a sequence persists correctly', function(t) {
-  t.plan(1)
+  t.plan(2)
   var DB = newDB()
 
   DB.open('one-doc', function(err, doc1) {
@@ -31,11 +31,13 @@ test('modifying a sequence persists correctly', function(t) {
     seq.push({id: 'c'});
     seq.after('a', 'b');
 
+    // get id order from array
     var firstOutput = seq.asArray().map(function(one){
       return one.get('id')
     })
 
     // is 'drain' the right event to listen for here?
+    console.log(doc1.history())
     DB.on('drain', function(){
 
       DB.close(function(err){
@@ -47,13 +49,13 @@ test('modifying a sequence persists correctly', function(t) {
         anotherDB.open('one-doc', function(err, doc2) {
           var seq = doc2.createSeq('session', 'one');
 
+          // get id order from array
           var secondOutput = seq.asArray().map(function(one){
             return one.get('id')
           })
 
 
-          // console.log(firstOutput)
-          // console.log(secondOutput)
+          t.same(doc2.history(), doc1.history())
           t.same(firstOutput, secondOutput)
         })
       })
