@@ -31,7 +31,7 @@ test('modifying a sequence persists correctly', function(t) {
     seq.push({id: 'c'});
     seq.after('a', 'b');
 
-    var firstOutput = seq.asArray()
+    var firstOutput = seq.toJSON()
 
     // is 'drain' the right event to listen for here?
     DB.on('drain', function(){
@@ -45,7 +45,7 @@ test('modifying a sequence persists correctly', function(t) {
         anotherDB.open('one-doc', function(err, doc2) {
           var seq = doc2.createSeq('session', 'one');
 
-          var secondOutput = seq.asArray()
+          var secondOutput = seq.toJSON()
 
           // console.log(firstOutput)
           // console.log(secondOutput)
